@@ -19,12 +19,13 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_User")
     private Long id;
 
     @Column(nullable = false, length = 50)
-    private String nombre;
+    private String nom;
     @Column(nullable = false, length = 50)
-    private String apellido;
+    private String ape;
     @Column(nullable = false, length = 50)
     private String email;
 
