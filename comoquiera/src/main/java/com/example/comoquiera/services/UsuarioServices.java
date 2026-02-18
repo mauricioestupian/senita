@@ -6,6 +6,8 @@ import com.example.comoquiera.dtos.UsuarioDto;
 
 public interface UsuarioServices {
 
-    List<UsuarioDto> getUsuarios();
+    public List<UsuarioDto> getUsuarios();
+
+    public UsuarioDto saveUser(UsuarioDto usuarioDto);
 
 }

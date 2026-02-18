@@ -33,7 +33,7 @@ public class UsuarioController {
     }
 
     // Lee todos los datos
-    @GetMapping("/user")
+    @GetMapping("/users")
     public List<Usuario> ListUsers() {
         return userepo.findAll();
     }
@@ -56,5 +56,10 @@ public class UsuarioController {
     @GetMapping("/usuarios")
     public ResponseEntity<List<UsuarioDto>> todosusuarios() {
         return new ResponseEntity<>(usuarioServices.getUsuarios(), HttpStatus.OK);
+    }
+
+    @PostMapping("/guardar")
+    public ResponseEntity<UsuarioDto> guardarusuario(@RequestBody UsuarioDto usuarioDto) {
+        return new ResponseEntity<>(usuarioServices.saveUser(usuarioDto), HttpStatus.CREATED);
     }
 }

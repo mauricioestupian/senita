@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.comoquiera.dtos.UsuarioDto;
 import com.example.comoquiera.mapper.UsuarioMapper;
+import com.example.comoquiera.models.Usuario;
 import com.example.comoquiera.repostories.UsuarioRepository;
 
 @Service
@@ -23,4 +24,9 @@ public class UsuarioServicesImpl implements UsuarioServices {
         return usuarioMapper.toUsuariosDto(userepo.findAll());
     }
 
+    @Override
+    public UsuarioDto saveUser(UsuarioDto usuarioDto) {
+        Usuario usuario = usuarioMapper.toUsuario(usuarioDto);
+        return usuarioMapper.toUsuarioDto(userepo.save(usuario));
+    }
 }
