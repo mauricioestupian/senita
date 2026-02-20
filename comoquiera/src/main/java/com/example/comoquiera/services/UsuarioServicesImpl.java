@@ -35,4 +35,12 @@ public class UsuarioServicesImpl implements UsuarioServices {
         Usuario usuario = userepo.findById(id).orElseThrow(() -> new RuntimeException("No existe usuario"));
         return usuarioMapper.toUsuarioDto(usuario);
     }
+
+    @Override
+    public UsuarioDto eliminarUsuario(Long id) {
+        Usuario usuario = userepo.findById(id).orElseThrow(() -> new RuntimeException("No existe usuario"));
+        userepo.deleteById(id);
+        return usuarioMapper.toUsuarioDto(usuario);
+    }
+
 }

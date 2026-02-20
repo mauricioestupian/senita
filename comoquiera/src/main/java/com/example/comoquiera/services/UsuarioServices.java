@@ -12,4 +12,6 @@ public interface UsuarioServices {
 
     public UsuarioDto buscarporId(Long id);
 
+    public UsuarioDto eliminarUsuario(Long id);
+
 }
