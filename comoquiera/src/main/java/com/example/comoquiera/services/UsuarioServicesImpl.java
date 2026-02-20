@@ -29,4 +29,10 @@ public class UsuarioServicesImpl implements UsuarioServices {
         Usuario usuario = usuarioMapper.toUsuario(usuarioDto);
         return usuarioMapper.toUsuarioDto(userepo.save(usuario));
     }
+
+    @Override
+    public UsuarioDto buscarporId(Long id) {
+        Usuario usuario = userepo.findById(id).orElseThrow(() -> new RuntimeException("No existe usuario"));
+        return usuarioMapper.toUsuarioDto(usuario);
+    }
 }

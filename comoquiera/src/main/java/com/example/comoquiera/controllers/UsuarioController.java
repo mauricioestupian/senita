@@ -50,6 +50,7 @@ public class UsuarioController {
         return userepo.save(usuario);
     }
 
+    // Uso de servicios para obtener datos como DTO
     @Autowired
     private UsuarioServices usuarioServices;
 
@@ -62,4 +63,10 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDto> guardarusuario(@RequestBody UsuarioDto usuarioDto) {
         return new ResponseEntity<>(usuarioServices.saveUser(usuarioDto), HttpStatus.CREATED);
     }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UsuarioDto> obtenerUsuarioPorId(@PathVariable Long id) {
+        return new ResponseEntity<>(usuarioServices.buscarporId(id), HttpStatus.OK);
+    }
+
 }

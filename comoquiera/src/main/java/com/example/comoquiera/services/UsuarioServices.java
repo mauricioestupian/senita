@@ -10,4 +10,6 @@ public interface UsuarioServices {
 
     public UsuarioDto saveUser(UsuarioDto usuarioDto);
 
+    public UsuarioDto buscarporId(Long id);
+
 }
