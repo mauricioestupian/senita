@@ -43,4 +43,11 @@ public class UsuarioServicesImpl implements UsuarioServices {
         return usuarioMapper.toUsuarioDto(usuario);
     }
 
+    @Override
+    public UsuarioDto actualizarUsuario(Long id, UsuarioDto usuarioDto){
+        Usuario usuario = userepo.findById(id).get();
+        usuarioMapper.updateusuario(usuario, usuarioDto);
+        return usuarioMapper.toUsuarioDto(userepo.save(usuario));
+    }
+
 }

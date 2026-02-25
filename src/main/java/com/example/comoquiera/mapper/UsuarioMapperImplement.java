@@ -56,4 +56,16 @@ public class UsuarioMapperImplement implements UsuarioMapper {
         return usuariosDto;
     }
 
+    @Override
+    public void updateusuario(Usuario usuario, UsuarioDto usuarioDto){
+        if(usuarioDto == null){
+            return;
+        }
+
+        usuario.setId(usuarioDto.getId_usuario());
+        usuario.setNom(usuarioDto.getNombre());
+        usuario.setApe(usuarioDto.getApellido());
+        usuario.setEmail(usuarioDto.getCorreo());
+    }
+
 }

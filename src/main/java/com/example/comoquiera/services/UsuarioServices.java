@@ -14,4 +14,6 @@ public interface UsuarioServices {
 
     public UsuarioDto eliminarUsuario(Long id);
 
+    public UsuarioDto actualizarUsuario(Long id, UsuarioDto usuarioDto);
+
 }
