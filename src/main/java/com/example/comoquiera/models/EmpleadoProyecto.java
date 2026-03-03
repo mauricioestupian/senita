@@ -3,7 +3,6 @@ package com.example.comoquiera.models;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,12 +26,16 @@ public class EmpleadoProyecto {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("empleadoId")
-    @JoinColumn(name = "empleado_id", foreignKey = @ForeignKey(name="fk_empleado_proyecto_empleado"))
+    @JoinColumn(name = "empleado_id", foreignKey = @ForeignKey(name = "fk_empleado_proyecto_empleado"))
     private Empleado empleado;
+    // @ForeignKey(name="fk_empleado_proyecto_empleado") es el nombre del constraint
+    // de clave foránea que se creará en la base de datos para esta relación. Esto
+    // ayuda a identificar claramente la relación entre las tablas y facilita la
+    // gestión de la base de datos.
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("proyectoId")
-    @JoinColumn(name = "proyecto_id", foreignKey = @ForeignKey(name="fk_empleado_proyecto_proyecto"))
+    @JoinColumn(name = "proyecto_id", foreignKey = @ForeignKey(name = "fk_empleado_proyecto_proyecto"))
     private Proyecto proyecto;
 
     @Column(name = "Fecha_asignacion")

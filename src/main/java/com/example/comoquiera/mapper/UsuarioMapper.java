@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.comoquiera.dtos.UsuarioDto;
 import com.example.comoquiera.models.Usuario;
+
 @Component
 
 public interface UsuarioMapper {
@@ -17,5 +18,7 @@ public interface UsuarioMapper {
     List<UsuarioDto> toUsuariosDto(List<Usuario> usuarios);
 
     void updateusuario(Usuario usuario, UsuarioDto usuarioDto);
+
+    // optionally, you can map roles or other nested structures here in the future
 
 }

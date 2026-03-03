@@ -12,4 +12,9 @@ public class UsuarioDto {
     private String nombre;
     private String apellido;
     private String correo;
+
+    // password will only be used for create/update operations and not sent back in
+    // responses
+    @com.fasterxml.jackson.annotation.JsonProperty(access = com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
+    private String password;
 }

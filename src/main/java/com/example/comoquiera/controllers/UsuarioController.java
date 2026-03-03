@@ -2,7 +2,6 @@ package com.example.comoquiera.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,75 +14,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.comoquiera.dtos.UsuarioDto;
-import com.example.comoquiera.models.Usuario;
-import com.example.comoquiera.repostories.UsuarioRepository;
 import com.example.comoquiera.services.UsuarioServices;
-//import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
-    private final UsuarioRepository userepo;
+    // servicio centralizado para operaciones CRUD sobre usuarios
+    // Inyeccion de dependencias nativo sin @Autowired
+    private final UsuarioServices usuarioServices;
 
-    public UsuarioController(UsuarioRepository userepo) {
-        this.userepo = userepo;
+    public UsuarioController(UsuarioServices usuarioServices) {
+        this.usuarioServices = usuarioServices;
     }
 
-    @GetMapping("/")
-    public String Inicio() {
-        return new String("Inicio desde el controlador");
+    @GetMapping
+    public ResponseEntity<List<UsuarioDto>> getAllUsuarios() {
+        return ResponseEntity.ok(usuarioServices.getUsuarios());
     }
 
-    // Lee todos los datos
-    @GetMapping("/users")
-    public List<Usuario> ListUsers() {
-        return userepo.findAll();
-    }
-
-    // Encontrar por ID
     @GetMapping("/{id}")
-    public Usuario ObtenerUsuarioID(@PathVariable Long id) {
-        return userepo.findById(id).orElseThrow(() -> new RuntimeException("No existe sa monda"));
+    public ResponseEntity<UsuarioDto> getUsuarioById(@PathVariable Long id) {
+        return ResponseEntity.ok(usuarioServices.buscarporId(id));
     }
 
     @PostMapping("/crear")
-    public Usuario CrearUsuario(@RequestBody Usuario usuario) {
-        // TODO: process POST request
-        return userepo.save(usuario);
+    public ResponseEntity<UsuarioDto> createUsuario(@RequestBody UsuarioDto usuarioDto) {
+        UsuarioDto saved = usuarioServices.saveUser(usuarioDto);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
-    // Uso de servicios para obtener datos como DTO
-    @Autowired
-    private UsuarioServices usuarioServices;
-
-    @GetMapping("/usuarios")
-    public ResponseEntity<List<UsuarioDto>> todosusuarios() {
-        return new ResponseEntity<>(usuarioServices.getUsuarios(), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioDto> updateUsuario(@PathVariable Long id, @RequestBody UsuarioDto usuarioDto) {
+        return ResponseEntity.ok(usuarioServices.actualizarUsuario(id, usuarioDto));
     }
 
-    @PostMapping("/guardar")
-    public ResponseEntity<UsuarioDto> guardarusuario(@RequestBody UsuarioDto usuarioDto) {
-        return new ResponseEntity<>(usuarioServices.saveUser(usuarioDto), HttpStatus.CREATED);
-    }
-
-    @GetMapping("/user/{id}")
-    public ResponseEntity<UsuarioDto> obtenerUsuarioPorId(@PathVariable Long id) {
-        return new ResponseEntity<>(usuarioServices.buscarporId(id), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<UsuarioDto> deleteUsuario(@PathVariable Long id) {
-        return new ResponseEntity<>(usuarioServices.eliminarUsuario(id), HttpStatus.OK);
+        return ResponseEntity.ok(usuarioServices.eliminarUsuario(id));
     }
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<UsuarioDto> updateUsuario(@PathVariable Long id, @RequestBody UsuarioDto usuarioDto){
-        return new ResponseEntity<>(usuarioServices.actualizarUsuario(id, usuarioDto), HttpStatus.OK);
-    }
-
-    
-    
 
 }

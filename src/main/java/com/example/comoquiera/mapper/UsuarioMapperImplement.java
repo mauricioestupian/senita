@@ -23,6 +23,7 @@ public class UsuarioMapperImplement implements UsuarioMapper {
         usuario.setNom(usuarioDto.getNombre());
         usuario.setApe(usuarioDto.getApellido());
         usuario.setEmail(usuarioDto.getCorreo());
+        usuario.setPassword(usuarioDto.getPassword());
         return usuario;
     }
 
@@ -38,6 +39,7 @@ public class UsuarioMapperImplement implements UsuarioMapper {
         usuarioDto.setNombre(usuario.getNom());
         usuarioDto.setApellido(usuario.getApe());
         usuarioDto.setCorreo(usuario.getEmail());
+        // password is write‑only; do not expose it in DTO output
         return usuarioDto;
 
     }
@@ -57,8 +59,8 @@ public class UsuarioMapperImplement implements UsuarioMapper {
     }
 
     @Override
-    public void updateusuario(Usuario usuario, UsuarioDto usuarioDto){
-        if(usuarioDto == null){
+    public void updateusuario(Usuario usuario, UsuarioDto usuarioDto) {
+        if (usuarioDto == null) {
             return;
         }
 
@@ -66,6 +68,9 @@ public class UsuarioMapperImplement implements UsuarioMapper {
         usuario.setNom(usuarioDto.getNombre());
         usuario.setApe(usuarioDto.getApellido());
         usuario.setEmail(usuarioDto.getCorreo());
+        if (usuarioDto.getPassword() != null) {
+            usuario.setPassword(usuarioDto.getPassword());
+        }
     }
 
 }
